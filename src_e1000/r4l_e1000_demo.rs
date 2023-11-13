@@ -7,6 +7,7 @@
 use core::iter::Iterator;
 use core::sync::atomic::AtomicPtr;
 
+use kernel::driver::DeviceRemoval;
 use kernel::pci::Resource;
 use kernel::prelude::*;
 use kernel::sync::Arc;
@@ -298,6 +299,7 @@ struct E1000DrvPrvData {
 impl driver::DeviceRemoval for E1000DrvPrvData {
     fn device_remove(&self) {
         pr_info!("Rust for linux e1000 driver demo (device_remove)\n");
+        drop(&self._netdev_reg);
     }
 }
 
@@ -468,6 +470,7 @@ impl pci::Driver for E1000Drv {
 
     fn remove(data: &Self::Data) {
         pr_info!("Rust for linux e1000 driver demo (remove)\n");
+        data.device_remove();
     }
 }
 struct E1000KernelMod {

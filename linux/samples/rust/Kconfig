@@ -163,4 +163,13 @@ config SAMPLE_RUST_SELFTESTS
 
 	  If unsure, say N.
 
+
+config SAMPLE_RUST_HELLOWORLD
+        tristate "Print Helloworld in Rust"
+        help
+          This option print hello world for Rust.
+
+          If unsure, say N.
+
+
 endif # SAMPLES_RUST
